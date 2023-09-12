@@ -113,6 +113,8 @@ A virtual environment is an isolated space for the package and dependencies. It 
 
 **4. MVC, MVT, and MVVM**
 
+MVC, MVT, and MVVM are three popular design patterns in software development
+
 1. MVC (Model-View-Controller) -> common in traditional web and desktop applications
 
 Model: stores the application data
