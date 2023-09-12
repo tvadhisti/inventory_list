@@ -65,3 +65,8 @@ Since I had already connected Adaptable.io with GitHub, I chose the "inventory_l
 
 8. Create a README.md. 
 I created the README.md before pushing "inventory_list" to GitHub. I created it using a text editor and placed it in the same directory as "inventory_list."
+
+**2. Flow Diagram**
+
+![Flow Diagram](https://github.com/tvadhisti/inventory_list/assets/127074983/cb98328f-3b82-45f0-b4f2-a64fa8123692)
+
