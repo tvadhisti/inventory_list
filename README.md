@@ -12,58 +12,86 @@ I created the 'main' app by running "python manage.py startapp main" and registe
 3. Create a URL routing configuration to access the 'main' app.
    
 first, I added the following code to the 'urls.py' file in the 'inventory_list' directory:
+
+```
 from django.urls import path, include
+```
 And then, I added the following line to the 'urlpatterns' list:
+
+```
 path('', include('main.urls')),
-Next, I configured the URL routing for my 'main' app. First, I created a 'urls.py' file inside the 'main' app and imported “from main.views import show_main and added path('', show_main, name='show_main') in the url patterns
+```
+
+Next, I configured the URL routing for my 'main' app. First, I created a 'urls.py' file inside the 'main' app and imported “from main.views import show_main and added path('', show_main, name='show_main')" in the url patterns
 With these steps, I successfully created the 'main' app in my Django project and configured URL routing to access it.
 
 4. Create a model in the 'main' app with the name 'Item' and the following mandatory attributes:
    
 First, I added the following code to the 'models.py' file in the 'main' application directory:
+
+```
 from django.db import models
 
 class Item(models.Model):
-    name = models.CharField(max_length=255)
-    amount = models.IntegerField()
-    description = models.TextField()
+...
+```
+  
+and add the attributes with their own types
+    
 Next, I created model migrations by running the following commands in the terminal:
+
+```
 python manage.py makemigrations
 python manage.py migrate
-
+```
 These commands generated and applied the migrations for the 'Item' model to the local database.
 
 5. Create a function in views.py that returns an HTML template containing your application name, your name, and your class.
    
-First, I created the HTML file in a new directory called "templates" inside the main application. Then, I connected views to templates by adding from django.shortcuts import render in the views.py file located in the main application and added the following code:
-def show_main(request):
-    context = {
-        'name': 'Tiva Adhisti Nafira Putri',
-        'class': 'PBP KI'
-    }
+First, I created the HTML file in a new directory called "templates" inside the main application. Then, I connected views to templates by adding "from django.shortcuts import render" in the views.py file located in the main application and added the following code:
 
+```
+def show_main(request):
+
+    context = {
+    
+        'name': 'Tiva Adhisti Nafira Putri',
+        
+        'class': 'PBP KI'
+        
+    }
+    
     return render(request, 'main.html', context)
+```
+    
 Afterward, I modified the main.html file as follows:
+
+```
 <h5>Name:</h5>
 <p>{{ name }}</p>
-
 <h5>Class:</h5>
 <p>{{ class }}</p>
-
+```
 
 6. Create a routing in urls.py to map the function in views.py to an URL.
 
 I added the following code to the urls.py file inside the main app:
+
+```
 from django.urls import path
 from main.views import show_main
 
 app_name = 'main'
-
 urlpatterns = [
     path('', show_main, name='show_main'),
     ]
+```
+    
 Additionally, I defined the URL patterns inside the urls.py file inside the project's shopping_list directory using path() as follows:
+
+```
 path('main/', include('main.urls')),
+```
 
 7. Deploy your app to Adaptable so it can be accessed through the internet.
    
@@ -82,3 +110,30 @@ I created the README.md before pushing "inventory_list" to GitHub. I created it 
 **3. Definition of Virtual Environment**
 
 A virtual environment is an isolated space for the package and dependencies. It manages dependencies and separates project packages from each other. We can create a Django web application without a virtual environment but this may cause conflicts.
+
+**4. MVC, MVT, and MVVM**
+
+1. MVC (Model-View-Controller) -> common in traditional web and desktop applications
+
+Model: stores the application data
+
+View: displays data
+
+Controller: manages communication between Model and View
+
+2. MVT (Model-View-Template) -> used in web frameworks like Django
+   
+Model: stores the application data
+
+View: displays data
+
+Template: defines how data is displayed (e.g. HTML)
+
+3. MVVM (Model-View-ViewModel) -> common in modern web applications.
+   
+Model: stores the application data
+
+View: displays data
+
+ViewModel: it serves as a link between the model and the view and it handles UI logic
+
