@@ -1,4 +1,10 @@
 # inventory_list
+
+
+| Data | Information     |     
+| :---:   | :---: | 
+| **Website URL** |https://inventorymanagement.adaptable.app | 
+
 **1. Steps in implementing the task**
 1. Create a new Django project.
    
