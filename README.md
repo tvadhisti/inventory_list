@@ -8,12 +8,12 @@
 **1. Steps in implementing the task**
 1. Create a new Django project.
    
-To create a new Django project, I first created a new directory on my desktop, namely 'inventory_list.' Next, I opened the terminal inside that directory and created a virtual environment by running "python -m venv env." Afterward, I activated the virtual environment by running "source env/bin/activate" and created a 'requirements.txt' file in that directory. I installed the necessary dependencies using "pip install -r requirements.txt." Finally, I used "django-admin startproject inventory_list ." to create the Django project. After creating it, I opened the folder in Visual Studio Code and edited the 'ALLOWED_HOSTS'  in 'settings.py' to be "ALLOWED_HOSTS = ["*"]." I then deactivated the virtual environment.
+To create a new Django project, I first created a new directory on my desktop, namely 'inventory_list.' Next, I opened the terminal inside that directory and created a virtual environment by running ```python -m venv env```. Afterward, I activated the virtual environment by running ```source env/bin/activate``` and created a 'requirements.txt' file in that directory. I installed the necessary dependencies using ```pip install -r requirements.txt```, Finally, I used ```django-admin startproject inventory_list .``` to create the Django project. After creating it, I opened the folder in Visual Studio Code and edited the 'ALLOWED_HOSTS'  in 'settings.py' to be ```ALLOWED_HOSTS = ["*"]```. I then deactivated the virtual environment.
 After completing these steps, I created a '.gitignore' file in the 'inventory_list' directory.
 
 2. Create an app with the name 'main' in that project.
    
-I created the 'main' app by running "python manage.py startapp main" and registered it by adding 'main' to the 'INSTALLED_APPS' list in the 'settings.py' file located in the 'inventory_list' project directory.
+I created the 'main' app by running ```python manage.py startapp main``` and registered it by adding ```main,``` to the 'INSTALLED_APPS' in the 'settings.py' file located in the 'inventory_list' project directory.
 
 3. Create a URL routing configuration to access the 'main' app.
    
@@ -28,7 +28,7 @@ And then, I added the following line to the 'urlpatterns' list:
 path('', include('main.urls')),
 ```
 
-Next, I configured the URL routing for my 'main' app. First, I created a 'urls.py' file inside the 'main' app and imported “from main.views import show_main and added path('', show_main, name='show_main')" in the url patterns
+Next, I configured the URL routing for my 'main' app. First, I created a 'urls.py' file inside the 'main' app and imported ```from main.views import show_main``` and added ```path('', show_main, name='show_main')``` in the url patterns
 With these steps, I successfully created the 'main' app in my Django project and configured URL routing to access it.
 
 4. Create a model in the 'main' app with the name 'Item' and the following mandatory attributes:
@@ -54,7 +54,7 @@ These commands generated and applied the migrations for the 'Item' model to the 
 
 5. Create a function in views.py that returns an HTML template containing your application name, your name, and your class.
    
-First, I created the HTML file in a new directory called "templates" inside the main application. Then, I connected views to templates by adding "from django.shortcuts import render" in the views.py file located in the main application and added the following code:
+First, I created the HTML file in a new directory called "templates" inside the main application. Then, I connected views to templates by adding ```from django.shortcuts import render``` in the views.py file located in the main application and added the following code:
 
 ```
 def show_main(request):
@@ -70,14 +70,7 @@ def show_main(request):
     return render(request, 'main.html', context)
 ```
     
-Afterward, I modified the main.html file as follows:
-
-```
-<h5>Name:</h5>
-<p>{{ name }}</p>
-<h5>Class:</h5>
-<p>{{ class }}</p>
-```
+Afterward, I modified the main.html file
 
 6. Create a routing in urls.py to map the function in views.py to an URL.
 
