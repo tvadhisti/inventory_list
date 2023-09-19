@@ -245,3 +245,21 @@ path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
 path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
 ```
 These paths are used for routing XML and JSON requests with specific IDs.
+
+**4. POSTMAN**
+
+HTML
+![Image 20-09-23 at 02 55](https://github.com/tvadhisti/inventory_list/assets/127074983/23711750-b858-447b-89ed-c1222bac23b6)
+
+XML
+![Image 20-09-23 at 02 58](https://github.com/tvadhisti/inventory_list/assets/127074983/72f2631c-d2cb-4a9b-b3cb-f2790c5cdcc1)
+![Image 20-09-23 at 02 52](https://github.com/tvadhisti/inventory_list/assets/127074983/97886948-083e-4a57-8407-aa154e477595)
+
+JSON
+![Image 20-09-23 at 02 57](https://github.com/tvadhisti/inventory_list/assets/127074983/b5051ddf-4b7f-4350-892f-9a28948c8ece)
+![Image 20-09-23 at 02 52 (3)](https://github.com/tvadhisti/inventory_list/assets/127074983/30dc8ade-b37e-49e7-946d-f06eb0f507cb)
+
+
+
+
+
