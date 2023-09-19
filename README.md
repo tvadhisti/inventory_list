@@ -5,6 +5,7 @@
 | :---:   | :---: | 
 | **Website URL** |https://inventorymanagement.adaptable.app | 
 
+## Assignment 1
 **1. Steps in implementing the task**
 1. Create a new Django project.
    
@@ -138,3 +139,105 @@ View: displays data
 
 ViewModel: it serves as a link between the model and the view and it handles UI logic
 
+## Assignment 2
+**GET Form vs POST Form in Django**
+
+GET: Data is sent in the URL, which can make it visible, and it is stored in the browser history. It is suitable for non sensitive data and it has URL length limitations.
+
+POST: Data is sent in the background, not visible in the URL, and not stored in the browser history. It is suitable for sensitive data, like usernames and passwords, and has no limitation on the length of the values.
+
+**XML vs JSON vs HTML**
+
+XML, JSON, and HTML are all data delivery stack, but the differences are:
+
+XML was designed to carry data and it is good to use when data structure flexibility and readability are important
+
+JSON is ssed for lightweight data exchange and it is good for APIs and data sent between a web server and a web app
+
+HTML is used for creating web pages and it focuses on how content looks and is presented
+
+**Why is JSON often used in data exchange between modern web applications?**
+
+JSON provides simplicity and readability. It is easy to understand for both humans and machines. The syntax consists of key-value pairs and arrays. It works well with any programming language and is perfect for web applications, especially those that use JavaScript.
+
+**Steps in implementing the task**
+1. Create a form input to add a model object to the previous app
+
+Firstly, I created a folder called 'templates' in the root directory and designed a ```base.html``` template to serve as the foundational structure for my website. Next, I made modifications to the ```settings.py``` file located in the 'inventory_list' directory, updating it to include the line: ```'DIRS': [BASE_DIR / 'templates'],```. Following that, I made adjustments to the ```main.html``` file to utilize ```base.html``` as its template.
+
+Next, I create ```forms.py``` inside ```main``` folder and added the following code:
+
+```
+from django.forms import ModelForm
+from main.models import Product
+
+class ProductForm(ModelForm):
+    class Meta:
+        model = Item
+        fields = ["name", "price", "description"]
+
+```
+
+I also added  additional imports in the 'views.py' file, located within the 'main' folder. Afterward, I created a new function:
+```
+def create_product(request):
+    form = ProductForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "create_product.html", context)
+```
+
+Following this, I introduced the following two lines within the ```show_main``` function:
+```
+products = Product.objects.all()
+```
+```
+'products': products
+```
+
+I also imported the ```create_product``` function within the ```urls.py``` file located in the ```main``` folder and included the following code:
+```path('create-product', create_product, name='create_product'),```
+
+Lastly, I created a new file named 'create_product.html'. This code represents a webpage template designed for adding a new product. It extends another template called 'base.html'. 
+
+Additionally, I inserted codes into 'main.html' to display product data in a table format and included a button for redirection to the form page.
+
+2. Add 5 views to view the added objects in HTML, XML, JSON, XML by ID, and JSON by ID formats.
+
+I started with XML. I imported the following into ```views.py``` within the ```main``` folder:
+```
+from django.http import HttpResponse
+from django.core import serializers
+````
+I then created a function called ```show_xml``` that creates a variable to store all fetched 'Item' objects:
+```
+def show_xml(request):
+    data = Item.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+```
+Next, i imported ```show_xml``` function in ```urls.py``` inside ```main``` folder and also added the path
+
+Next, I worked on the JSON version. I followed the same steps in both 'views.py' and 'urls.py,' but this time, I implemented it in JSON format instead of XML.
+
+
+3. Create URL routing for each of the views added in point 2.
+I created two functions:
+```
+def show_xml_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = Product.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+I then imported these functions into ```urls.py``` within the ```main``` folder and added the following paths:
+```
+path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+path('json/<int:id>/', show_json_by_id, name='show_json_by_id'),
+```
+These paths are used for routing XML and JSON requests with specific IDs
