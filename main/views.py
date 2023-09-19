@@ -8,13 +8,13 @@ from django.core import serializers
 
 
 def show_main(request):
-    products = Item.objects.all()
+    items = Item.objects.all()
 
     context = {
         'app name': 'Inventory Management',
         'name': 'Tiva Adhisti Nafira Putri',
         'class': 'PBP KI',
-        'products': products
+        'items': items
     }
 
     return render(request, "main.html", context)
@@ -38,10 +38,12 @@ def show_json(request):
     data = Item.objects.all()
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
+# Retrieving Data Based on ID in XML and JSON Formats
 def show_xml_by_id(request, id):
+    # store the query result of data with a specific ID from the Product model
     data = Item.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-
 def show_json_by_id(request, id):
+    # store the query result of data with a specific ID from the Product model
     data = Item.objects.filter(pk=id)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")

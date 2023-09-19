@@ -1,42 +1,103 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Inventory List Page</h1>
+<h1
+    style="background-color: #3463ad; color: white; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+    <center>
+        Inventory List
+    </center>
+</h1>
 
-<h5>Name:</h5>
-<p>{{name}}</p>
+<h5 style="font-size: 15px; margin-bottom: 10px;">
+    <center>
+        Developed by {{name}}
+    </center>
+</h5>
 
-<h5>Class:</h5>
-<p>{{class}}</p>
+<h5 style="margin-top: 0px;">
+    <center>{{class}}</center>
+</h5>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        button {
+            border-radius: 5px;
+            background-color: #3463ad;
+            border: #3463ad;
+            color: white;
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 7px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3b70c4;
+            border: #3b70c4;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
 
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Date Added</th>
-    </tr>
+    <table>
+        <tr>
 
-    {% comment %} Below is how to show the product data {% endcomment %}
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th> Date Added</th>
+        </tr>
 
-    {% for item in items %}
-    <tr>
-        <td>{{item.name}}</td>
-        <td>{{item.price}}</td>
-        <td>{{item.description}}</td>
-        <td>{{item.date_added}}</td>
-    </tr>
-    {% endfor %}
-</table>
+        {% comment %} Below is how to show the product data {% endcomment %}
 
-<br />
+        {% for item in items %}
+        <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.date_added}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
+    <br />
+
+    <div>
+        <a href="{% url 'main:create_product' %}">
+            <button>
+                Add New Product
+            </button>
+        </a>
+    </div>
 
 
-{% endblock content %}
+    {% endblock content %}
