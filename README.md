@@ -152,7 +152,7 @@ POST: Data is sent in the background, not visible in the URL, and not stored in 
 
 **2. XML vs JSON vs HTML**
 
-XML, JSON, and HTML are all data delivery stack, but the differences are:
+XML, JSON, and HTML are all data delivery stack, but the differences are as follows:
 
 1. XML was designed to carry data and it is good to use when data structure flexibility and readability are important
 
