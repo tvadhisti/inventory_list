@@ -11,7 +11,7 @@ def show_main(request):
     items = Item.objects.all()
 
     context = {
-        'app name': 'Inventory Management',
+        'app_name': 'Inventory Management',
         'name': 'Tiva Adhisti Nafira Putri',
         'class': 'PBP KI',
         'items': items

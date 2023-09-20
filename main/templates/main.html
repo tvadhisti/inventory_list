@@ -2,20 +2,18 @@
 
 {% block content %}
 <h1
-    style="background-color: #3463ad; color: white; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-    <center>
-        Inventory List
-    </center>
+    style="background-color: #3463ad; color: white; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
+
+    {{app_name}}
+
 </h1>
 
-<h5 style="font-size: 15px; margin-bottom: 10px;">
-    <center>
-        Developed by {{name}}
-    </center>
+<h5 style="font-size: 15px; margin-bottom: 10px; text-align: center;">
+    Developed by {{name}}
 </h5>
 
-<h5 style="margin-top: 0px;">
-    <center>{{class}}</center>
+<h5 style="margin-top: 0px; text-align: center;">
+    {{class}}
 </h5>
 
 <!DOCTYPE html>
@@ -65,39 +63,38 @@
     </style>
 </head>
 
-<body>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th> Date Added</th>
+    </tr>
+
+    {% comment %} Below is how to show the product data {% endcomment %}
+
+    {% for item in items %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.amount}}</td>
+        <td>{{item.description}}</td>
+        <td>{{item.date_added}}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br />
+
+<p style="color:#3b70c4">You have saved {{ item_count }} items in this application.</p>
+
+<div>
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+</div>
 
 
-    <table>
-        <tr>
-
-            <th>Name</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th> Date Added</th>
-        </tr>
-
-        {% comment %} Below is how to show the product data {% endcomment %}
-
-        {% for item in items %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.amount}}</td>
-            <td>{{item.description}}</td>
-            <td>{{item.date_added}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <br />
-
-    <div>
-        <a href="{% url 'main:create_product' %}">
-            <button>
-                Add New Product
-            </button>
-        </a>
-    </div>
-
-
-    {% endblock content %}
+{% endblock content %}
