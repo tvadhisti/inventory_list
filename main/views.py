@@ -9,16 +9,19 @@ from django.core import serializers
 
 def show_main(request):
     items = Item.objects.all()
+    count= Item.objects.all().count()
+
 
     context = {
         'app_name': 'Inventory Management',
         'name': 'Tiva Adhisti Nafira Putri',
         'class': 'PBP KI',
-        'items': items
+        'items': items,
+        'items_count': count,
+    
     }
 
     return render(request, "main.html", context)
-
 
 def create_product(request):
     form = ProductForm(request.POST or None)
