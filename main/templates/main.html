@@ -99,5 +99,12 @@
     </a>
 </div>
 
+<h5>Last login session: {{ last_login }}</h5>
+
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
 
 {% endblock content %}
