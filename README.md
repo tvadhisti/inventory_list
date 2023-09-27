@@ -260,6 +260,279 @@ JSON
 ![Image 20-09-23 at 02 52 (3)](https://github.com/tvadhisti/inventory_list/assets/127074983/30dc8ade-b37e-49e7-946d-f06eb0f507cb)
 
 
+## Assignment 3
 
+**1. UserCreationForm in Django**
+
+UserCreationForm is a built-in form class by Django for creating user registration forms in Django web applications.
+
+Advantages:
+1.	It helps us create sign-up forms quickly.
+2.	It makes sure people type in usernames and passwords correctly.
+
+Disadvantages:
+1.	We will need to make it look nice with our own styles because it looks basic.
+2.	It may not cover more complex user registration scenarios.
+
+**2. Authentication and Authorization in Django Application**
+
+Authentication involves confirming a user's identity, such as by checking their username and password.
+
+Authorization involves deciding what a user is allowed to do once they are in, such as whether they are allowed to change or delete stuff.
+
+Both are important because they work together to keep things secure. They work together to make sure important information is only seen and changed by the right people.
+
+**3. Cookies in Website**
+
+Cookies are small data files that are kept on a user's web browser when they are viewing a website They assist websites with remembering user information, such as username. Django uses cookies to keep track of users' identities when they visit a website. When the user log in, it writes a specific note (a session ID) on the computer. This note helps the website remember the user and the user’s stuff. Others cannot read or alter the note since it is secure.
+
+**4. Are cookies secure to use? Is there potential risk to be aware of?**
+
+Cookies are safe when we follow the rules, like keeping our data secret and using secure connections. Important cookie data must be concealed or encrypted for security reasons, and the website must employ a secure connection (HTTPS). Cookies, however, have the potential to expose the personal information or be utilised by hackers. Therefore, while using cookies on websites, it is crucial to adhere to security standards and consider privacy.
+
+**5. Steps in implementing the task**
+
+1. Implement registration, login, and logout functions to allow users to access the previous application.
+   
+   a. Creating a registration function
+   
+      I created a registration function in ```views.py``` within the ```main``` folder. Here's the code for the register function:
+
+```def register(request):
+    form = UserCreationForm()
+
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your account has been successfully created!')
+            return redirect('main:login')
+    context = {'form':form}
+    return render(request, 'register.html', context)
+```
+
+I also added three essential imports: redirect, UserCreationForm, and messages.
+
+Next, I created a new HTML file named ```register.html``` within the main/templates folder and added the following code:
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Register</title>
+{% endblock meta %}
+
+{% block content %}  
+
+<div class = "login">
+    
+    <h1>Register</h1>  
+
+        <form method="POST" >  
+            {% csrf_token %}  
+            <table>  
+                {{ form.as_table }}  
+                <tr>  
+                    <td></td>
+                    <td><input type="submit" name="submit" value="Daftar"/></td>  
+                </tr>  
+            </table>  
+        </form>
+
+    {% if messages %}  
+        <ul>   
+            {% for message in messages %}  
+                <li>{{ message }}</li>  
+                {% endfor %}  
+        </ul>   
+    {% endif %}
+
+</div>  
+
+{% endblock content %}
+```
+Lastly, I imported the register function in ```urls.py``` within the main folder and added a new path URL to the ```urlpatterns```, allowing access to this imported function.
+
+   b. Creating a login function
+
+   I created a login function in views.py within the main folder. Here's the code for the ```login_user``` function:
+```
+from django.contrib.auth import authenticate, login
+
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('main:show_main')
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    context = {}
+    return render(request, 'login.html', context)
+```
+
+Next, I created a new HTML file named ```login.html``` within the main/templates folder and added the following code:
+```
+{% extends 'base.html' %}
+
+{% block meta %}
+    <title>Login</title>
+{% endblock meta %}
+
+{% block content %}
+
+<div class = "login">
+
+    <h1>Login</h1>
+
+    <form method="POST" action="">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Username: </td>
+                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
+            </tr>
+                    
+            <tr>
+                <td>Password: </td>
+                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td><input class="btn login_btn" type="submit" value="Login"></td>
+            </tr>
+        </table>
+    </form>
+
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}     
+        
+    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+
+</div>
+
+{% endblock content %}
+```
+
+Finally, I imported the ```login_user``` function in ```urls.py``` within the main folder and added a new path URL to the urlpatterns, allowing access to this imported function.
+
+c. Creating a Logout Function
+
+I added a logout function to ```views.py``` in the main directory by including the following code:
+```
+from django.contrib.auth import logout
+def logout_user(request):
+    logout(request)
+    return redirect('main:login')
+```
+
+I also integrated this code into the ```main.html``` file located in the main/templates folder:
+```
+<a href="{% url 'main:logout' %}">
+    <button>
+        Logout
+    </button>
+</a>
+```
+
+inside ```main.html``` inside the main/template
+
+Finally, I imported the ```logout_user``` function in ```urls.py``` within the main folder and added a new path URL to the urlpatterns, enabling access to this function.
+
+2.  Create two user accounts with three dummy data entries for each account using the model previously created in the application.
+   
+I completed the registration form on the website using two different names, and for each account, I added three data entries by clicking the "add new product" button and filling out the product form.
+
+3. Connect Item model with User.
+   
+To connect the Item model with the User, I imported the necessary code in the ```models.py``` file within the main subdirectory:
+```
+from django.contrib.auth.models import User
+```
+I then updated the existing Item model as follows:
+```
+class Product(models.Model):
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
+```
+
+I made modifications to the ```create_product``` function in ```views.py``` to:
+```
+def create_product(request):
+form = ProductForm(request.POST or None)
+
+if form.is_valid() and request.method == "POST":
+    item = form.save(commit=False)
+    item.user = request.user
+    item.save()
+    return HttpResponseRedirect(reverse('main:show_main'))
+```
+Additionally, I adjusted the ```show_main``` function in the following way:
+```
+def show_main(request):
+    products = Product.objects.filter(user=request.user)
+
+    context = {
+        'name': request.user.username,
+```
+I saved all the changes and ran the migrations for the model.
+
+
+4. Display the information of the logged-in user, such as their username, and applying cookies, such as last login, on the main application page.
+
+First, in the ```views.py``` file in the main directory, I imported the ```login_required``` code from ```django.contrib.auth.decorators```. This code ensures that only logged-in users can access the web page.
+```
+from django.contrib.auth.decorators import login_required
+```
+
+I applied the ```@login_required(login_url='/login')``` decorator above the ```show_main``` function to restrict access to authenticated users.
+
+```
+@login_required(login_url='/login')
+```
+
+To implement cookies:
+
+After logging out from the website, I imported the necessary code to work with cookies. This included importing datetime and classes like HttpResponseRedirect and reverse from Django.
+
+```
+import datetime
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+```
+
+I modified the ```login_user``` function. Inside the if user is not None block, I used the ```response.set_cookie``` method to set a "last_login" cookie with the current date and time.
+
+```
+if user is not None:
+    login(request, user)
+    response = HttpResponseRedirect(reverse("main:show_main")) 
+    response.set_cookie('last_login', str(datetime.datetime.now()))
+    return response
+```
+
+In the show_main function, I added ```'last_login': request.COOKIES['last_login']``` to include the "last_login" cookie data in the response, which would be displayed on the web page.
+
+
+then I modified the ```logout_user``` function to delete the "last_login" cookie upon logging out.
+
+```
+def logout_user(request):
+    logout(request)
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
+```
+
+Finally, I added the following code to the ```main.html``` template to display the last login session time:
+```
+<h5>Last login session: {{ last_login }}</h5>
+```
 
 
