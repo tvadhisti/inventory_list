@@ -15,7 +15,7 @@ import datetime
 @login_required(login_url='/login')
 def show_main(request):
     items = Item.objects.filter(user=request.user)
-    count= Item.objects.all().count()
+    count= Item.objects.filter(user=request.user).count()
     # products = Product.objects.filter(user=request.user)
 
 
