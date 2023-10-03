@@ -4,6 +4,22 @@
 
 <head>
     <style>
+        .card {
+            background-color: white;
+
+            /* text-align: center; */
+            display: flex;
+            justify-content: center;
+            border: none;
+
+            padding: 20px;
+            box-shadow: 0px 16px 40px 0px rgba(255, 255, 255, 0.42) !important;
+            background-color: #fdfeff6f;
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+        }
+
         h1 {
             color: white;
             font-family: Arial, Helvetica, sans-serif;
@@ -40,42 +56,38 @@
     </style>
 </head>
 
-<header class="header">
-    <h2 class="logo">InVentory</h2>
-    <!-- <button class="btn-login-popup" type="button">Sign In</button> -->
-</header>
-<br>
-<br>
-<br>
-<div class="add-card">
-    <h1>
-        Add New Product
-    </h1>
-</div>
+<div
+    style="background-image: url('https://img.freepik.com/free-vector/white-abstract-background_23-2148818118.jpg'); height: 100vh; background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+    <div class="position-absolute top-50 start-50 translate-middle">
+        <div class="card">
+            <div class="card-body" style="padding-top: 50px; padding-bottom: 50px;">
+                <h1 style="color: black;">
+                    Add New Product
+                </h1>
+                <form method="POST" style="margin-left: 10px;">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                        <tr>
+                            <td></td>
+                            <td>
 
-<form method="POST" style="margin-left: 10px;">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-        <tr>
-            <td></td>
-            <td>
+                                <input type="submit" value="Add Product" />
+                            </td>
 
-                <input type="submit" value="Add Product" />
-            </td>
-
-        </tr>
-    </table>
-</form>
-
-
-<div class="container-fluid " style="padding: 0px;">
-    <div class="row content">
-        <div class="col-sm-2 sidenav hidden-xs" style="height: 100vh;">
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid " style="padding: 0px;">
+        <div class="row content">
+            <div class="col-sm-2 sidenav hidden-xs" style="height: 100vh;">
 
 
+            </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
