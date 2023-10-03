@@ -544,11 +544,12 @@ A CSS element selector is used to select and apply a set of styles to all elemen
 
 **2. Some of the HTML5 tags**
 
-<header>: This tag is located at the top of a webpage. It usually holds things like the website logo and menu buttons, making it easier for people to find their way around the site.
+```<header>```: This tag is located at the top of a webpage. It usually holds things like the website logo and menu buttons, making it easier for people to find their way around the site.
 
-<button>: This tag creates a clickable button on a webpage. It's like the buttons we press on our phone or computer. we click it to do things, like sending a message or submitting a form.
+```<button>```: This tag creates a clickable button on a webpage. It's like the buttons we press on our phone or computer. we click it to do things, like sending a message or submitting a form.
 
-<hr>: This tag adds a horizontal line to a webpage. It's like drawing a line from left to right. It's used to separate different parts of a page or make it look organized.
+```<hr>```: This tag adds a horizontal line to a webpage. It's like drawing a line from left to right. It's used to separate different parts of a page or make it look organized.
+
 
 
 **3. Padding vs Margin**
