@@ -11,13 +11,13 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-import environ # Add this line
-import os # Add this line
+import environ  # Add this line
+import os  # Add this line
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env = environ.Env() # Add this line
+env = environ.Env()  # Add this line
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -62,7 +62,7 @@ ROOT_URLCONF = 'inventory_list.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'], # add this line
+        'DIRS': [BASE_DIR / 'templates'],  # add this line
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

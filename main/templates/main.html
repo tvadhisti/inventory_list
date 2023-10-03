@@ -1,25 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1
-    style="background-color: #3463ad; color: white; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center;">
-
-    {{app_name}}
-
-</h1>
-
-<h5 style="font-size: 15px; margin-bottom: 10px; text-align: center;">
-    Developed by {{name}}
-</h5>
-
-<h5 style="margin-top: 0px; text-align: center;">
-    {{class}}
-</h5>
-
-<!DOCTYPE html>
-<html>
 
 <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <style>
         table {
             font-family: arial, sans-serif;
@@ -32,13 +17,29 @@
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
+
         }
 
         tr:nth-child(even) {
             background-color: #dddddd;
         }
 
-        button {
+        .logout-btn {
+            border-radius: 5px;
+            background-color: transparent;
+            border: #3463ad;
+            color: white;
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 20px;
+
+        }
+
+        .new-btn {
             border-radius: 5px;
             background-color: #3463ad;
             border: #3463ad;
@@ -52,7 +53,7 @@
             font-size: 15px;
         }
 
-        button:hover {
+        .new-btn:hover {
             background-color: #3b70c4;
             border: #3b70c4;
             cursor: pointer;
@@ -61,50 +62,258 @@
         a {
             text-decoration: none;
         }
+
+        .header {
+            position: fixed;
+            width: 100%;
+            padding: 10px 25px;
+            /* background-color: blue; */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: white;
+            background-color: rgb(31, 45, 112);
+        }
+
+        .logout-btn:hover {
+            color: #e4e8ee;
+        }
+
+        .card-name {
+            width: 250px;
+            height: 30px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            padding-top: 10px;
+            border: 2px solid black;
+            margin-left: 10px;
+            margin-bottom: 10px;
+
+        }
+
+        .card-table {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 10px 16px 40px 10px rgba(112, 144, 176, 0.20);
+            padding: 20px;
+            margin: 20px;
+
+        }
+
+        .side-nav {
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 30px 15px;
+            background-color: white;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 20px;
+
+        }
+
+        .side-item {
+            padding: 10px;
+        }
+
+        .side-item:hover {
+            background: #3463ad;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        a {
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+
+        }
+
+        a:hover {
+            color: #3463ad;
+        }
+
+        .card-item {
+            background-color: #b4d2ff;
+            color: rgb(38, 111, 213);
+            padding: 20px;
+            width: 370px;
+            border-radius: 10px;
+            box-shadow: 0px 16px 15px 0px rgba(112, 144, 176, 0.20);
+            margin: 20px;
+
+        }
     </style>
 </head>
 
+<div class="container-fluid " style="padding: 0px;">
+    <div class="row content">
+        <div class="col-sm-2 sidenav hidden-xs" style="height: 100vh;">
+            <h2 style="text-align: center; padding-top: 20px; font-size: 40px;">InVentory</h2>
+            <hr style="margin-left: 15px;">
+            <br>
+            <div style="margin-left: 20px;">
+                <img width="20px" style="padding-bottom: 5px;"
+                    src="https://cdn-icons-png.flaticon.com/128/3757/3757985.png">
+                <a style=" padding-left: 10px; " href="/">Dashboard</a></li>
+            </div>
+            <br>
+            <!-- <a style="position: fixed; left: 30px; margin-top: 20px;" href="{% url 'main:create_product' %}">
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th> Date Added</th>
-    </tr>
+                Add New Product
 
-    {% comment %} Below is how to show the product data {% endcomment %}
+            </a> -->
+            <div style="margin-left: 20px;">
+                <img width="20px" style="padding-bottom: 5px; position: fixed; bottom: 30px; left: 30px;"
+                    src="https://cdn-icons-png.flaticon.com/128/2099/2099238.png">
+                <a style="position: fixed; bottom: 30px; padding-left: 40px;" href="{% url 'main:logout' %}">
+                    Logout
 
-    {% for item in items %}
-    <tr>
-        <td>{{item.name}}</td>
-        <td>{{item.amount}}</td>
-        <td>{{item.description}}</td>
-        <td>{{item.date_added}}</td>
-    </tr>
-    {% endfor %}
-</table>
+                </a>
+            </div>
+        </div>
+        <br>
 
-<br />
+        <div class="col-sm-10" style="background: #f3f4f4; height: 100vh;">
+            <div class="well">
 
-<p style="color:#666c76; font-family: Arial, Helvetica, sans-serif; text-align: center;">
-    You have saved {{items_count}} items in this
-    application</p>
+                <h5 style="font-size: 25px; margin-bottom: 10px; font-weight: 600; margin: 20px;">
+                    Welcome Back, {{name}}!
+                </h5>
 
-<div>
-    <a href="{% url 'main:create_product' %}">
-        <button>
-            Add New Product
-        </button>
-    </a>
+                <div class="card-item">
+                    <b
+                        style="color: rgb(38, 111, 213); font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; padding: 0px; margin: 0px;">
+                        You have saved {{items_count}} items in this
+                        application</b>
+                </div>
+                <!-- <h5 style="margin-top: 0px; text-align: center;">
+                    {{class}}
+                </h5> -->
+
+                <!DOCTYPE html>
+                <html>
+
+
+
+                <div class="card-table">
+
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Description</th>
+                            <th> Date Added</th>
+                        </tr>
+
+                        {% comment %} Below is how to show the product data {% endcomment %}
+
+                        {% for item in items %}
+                        <tr>
+                            <td>{{item.name}}</td>
+                            <td>{{item.amount}}</td>
+                            <td>{{item.description}}</td>
+                            <td>{{item.date_added}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+            <div>
+                <a href="{% url 'main:create_product' %}">
+                    <button class="new-btn">
+                        Add New Product
+                    </button>
+                </a>
+            </div>
+
+            <h5 style="padding-left: 15px; font-size: 15px; margin: 20px;">Last login session: {{ last_login }}</h5>
+
+        </div>
+    </div>
 </div>
+<!-- <div style="height: 100vh;"> -->
 
-<h5>Last login session: {{ last_login }}</h5>
+<!-- <header class="header">
+        <h2 class="logo">InVentory</h2>
+        <a href="{% url 'main:logout' %}">
+            <button class="logout-btn">
+                Logout
+            </button>
+        </a>
+    </header> -->
+<!-- <br>
+    <br> -->
+<!-- <br> -->
+<!-- <h1
+        style=" color: black; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: start;">
 
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
+        {{app_name}}
 
-{% endblock content %}
+    </h1> -->
+<!-- <br>
+    <div class="card-name">
+        <h5 style="font-size: 15px; margin-bottom: 10px;">
+            Welcome Back, {{name}}!
+        </h5>
+    </div>
+
+    <p style="color:#666c76; font-family: Arial, Helvetica, sans-serif; margin-left: 15px;">
+        You have saved {{items_count}} items in this
+        application</p> -->
+
+<!-- <h5 style="margin-top: 0px; text-align: center;">
+        {{class}}
+    </h5> -->
+
+<!-- <!DOCTYPE html>
+    <html>
+
+
+
+    <div class="card-table">
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Description</th>
+                <th> Date Added</th>
+            </tr>
+
+            {% comment %} Below is how to show the product data {% endcomment %}
+
+            {% for item in items %}
+            <tr>
+                <td>{{item.name}}</td>
+                <td>{{item.amount}}</td>
+                <td>{{item.description}}</td>
+                <td>{{item.date_added}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br /> -->
+
+
+
+<!-- <div>
+        <a href="{% url 'main:create_product' %}">
+            <button class="new-btn">
+                Add New Product
+            </button>
+        </a>
+    </div>
+
+    <h5 style="padding-left: 15px; font-size: 15px;">Last login session: {{ last_login }}</h5>
+
+
+
+    {% endblock content %}
+</div> -->

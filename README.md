@@ -535,4 +535,43 @@ Finally, I added the following code to the ```main.html``` template to display t
 <h5>Last login session: {{ last_login }}</h5>
 ```
 
+## Assignment 1
+
+**1. The Purpose of some CSS Element Selector**
+
+A CSS element selector is used to select and apply a set of styles to all elements of a specific HTML tag type, such as p, h1, h2, a, and more. When we use an element selector, the chosen styles will be applied to every instance of that specific element type across your webpage. this maintains look consistency for those elements throughout the website.
+
+
+**2. Some of the HTML5 tags**
+
+<header>: This tag is located at the top of a webpage. It usually holds things like the website logo and menu buttons, making it easier for people to find their way around the site.
+
+<button>: This tag creates a clickable button on a webpage. It's like the buttons we press on our phone or computer. we click it to do things, like sending a message or submitting a form.
+
+<hr>: This tag adds a horizontal line to a webpage. It's like drawing a line from left to right. It's used to separate different parts of a page or make it look organized.
+
+
+**3. Padding vs Margin**
+
+Margin creates space outside of an element, creating space between elements, while padding creates space inside an element.
+
+
+**3. Tailwind vs Bootstrap**
+
+Tailwind CSS: we can choose it when we want to create a completely unique and custom look for the website, and if we do not mind starting from scratch.
+
+Bootstrap: we can choose bootstrap when we want to save time by using ready-made designs and components. and it is good for creating a webpage with a consistent look.
+
+
+**4. Steps in implementing the task**
+
+I styled the first login page by adding a navbar to hold the logo. Then, I looked for a background image that matched my website's theme and used it as a cover for the login page. I created a card to contain the form and all its inputs, positioning the card in the center and adjusting the blur level to make it look better.
+
+Styling the register page wasn't much different from how I styled the login page because I wanted to maintain a consistent design on my website when users are not logged in.
+
+On the first main page, I started by making a sidebar on the left. I added stuff like a logo, lines, and links for 'dashboard' and 'logout.' I put the 'logout' link at the very bottom by adding 'bottom:30' in its css. And I also added icon images for 'dashboard' and 'logout' in the sidebar. I positioned the sidebar in 2 out of 12 sections. On the right side, I began with a welcoming message when the user is logged in. Then, I displayed the number of items that are already saved, designing it with a blue card and centering the text. After that, there is a table for inventory that I had created, a button for creating a product that changed color when hovered to make it more interactive, and I displayed the user's last login session. I kept it simple for easy user understanding and used two different colors for the table to make it clearer.
+
+Styling the 'create_product' page was relatively brief. I added a navbar for the logo and the 'create_product' title using a card.
+
+Throughout this website styling, I frequently used cards to make things look better.
 
