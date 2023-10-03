@@ -557,14 +557,14 @@ A CSS element selector is used to select and apply a set of styles to all elemen
 Margin creates space outside of an element, creating space between elements, while padding creates space inside an element.
 
 
-**3. Tailwind vs Bootstrap**
+**4. Tailwind vs Bootstrap**
 
 Tailwind CSS: we can choose it when we want to create a completely unique and custom look for the website, and if we do not mind starting from scratch.
 
 Bootstrap: we can choose bootstrap when we want to save time by using ready-made designs and components. and it is good for creating a webpage with a consistent look.
 
 
-**4. Steps in implementing the task**
+**5. Steps in implementing the task**
 
 I styled the first login page by adding a navbar to hold the logo. Then, I looked for a background image that matched my website's theme and used it as a cover for the login page. I created a card to contain the form and all its inputs, positioning the card in the center and adjusting the blur level to make it look better.
 
