@@ -572,7 +572,7 @@ Styling the register page wasn't much different from how I styled the login page
 
 On the first main page, I started by making a sidebar on the left. I added stuff like a logo, lines, and links for 'dashboard' and 'logout.' I put the 'logout' link at the very bottom by adding 'bottom:30' in its css. And I also added icon images for 'dashboard' and 'logout' in the sidebar. I positioned the sidebar in 2 out of 12 sections. On the right side, I began with a welcoming message when the user is logged in. Then, I displayed the number of items that are already saved, designing it with a blue card and centering the text. After that, there is a table for inventory that I had created, a button for creating a product that changed color when hovered to make it more interactive, and I displayed the user's last login session. I kept it simple for easy user understanding and used two different colors for the table to make it clearer.
 
-Styling the 'create_product' page was relatively brief. I added a navbar for the logo and the 'create_product' title using a card.
+Styling the 'create_product' page was relatively brief. I added a card for the form inputs and added the background using url from google
 
 Throughout this website styling, I frequently used cards to make things look better.
 
