@@ -6,7 +6,7 @@
 | **Website URL** |https://inventorymanagement.adaptable.app | 
 
 
-## Assignment 1
+## Assignment 2
 
 **1. Steps in implementing the task**
 1. Create a new Django project.
@@ -142,7 +142,7 @@ View: displays data
 ViewModel: it serves as a link between the model and the view and it handles UI logic
 
 
-## Assignment 2
+## Assignment 3
 
 **1. GET Form vs POST Form in Django**
 
@@ -260,7 +260,7 @@ JSON
 ![Image 20-09-23 at 02 52 (3)](https://github.com/tvadhisti/inventory_list/assets/127074983/30dc8ade-b37e-49e7-946d-f06eb0f507cb)
 
 
-## Assignment 3
+## Assignment 4
 
 **1. UserCreationForm in Django**
 
@@ -535,7 +535,7 @@ Finally, I added the following code to the ```main.html``` template to display t
 <h5>Last login session: {{ last_login }}</h5>
 ```
 
-## Assignment 1
+## Assignment 5
 
 **1. The Purpose of some CSS Element Selector**
 
