@@ -52,6 +52,7 @@
             padding: 5px 10px;
             cursor: pointer;
             font-size: 15px;
+            margin-top: 20px;
         }
 
         .new-btn:hover {
@@ -167,11 +168,6 @@
                 <a style=" padding-left: 10px; " href="/">Dashboard</a></li>
             </div>
             <br>
-            <!-- <a style="position: fixed; left: 30px; margin-top: 20px;" href="{% url 'main:create_product' %}">
-
-                Add New Product
-
-            </a> -->
             <div style="margin-left: 20px;">
                 <img width="20px" style="padding-bottom: 5px; position: fixed; bottom: 30px; left: 30px;"
                     src="https://cdn-icons-png.flaticon.com/128/2099/2099238.png">
@@ -190,8 +186,8 @@
                     Welcome Back, {{name}}!
                 </h5>
 
-                <div class="card-item">
-                    <b
+                <div class="card-item" id="item-count">
+                    <b id="item-count"
                         style="color: rgb(38, 111, 213); font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; padding: 0px; margin: 0px;">
                         You have saved {{items_count}} items in this
                         application</b>
@@ -202,10 +198,10 @@
 
                 <!DOCTYPE html>
                 <html>
-
-
-
                 <div class="card-table">
+                    <table id="product_table"></table>
+                </div>
+                <!-- <div class="card-table">
 
                     <table>
                         <tr>
@@ -227,96 +223,103 @@
                         {% endfor %}
                     </table>
                 </div>
-            </div>
-            <div>
-                <a href="{% url 'main:create_product' %}">
-                    <button class="new-btn">
-                        Add New Product
-                    </button>
-                </a>
-            </div>
+            </div> -->
 
-            <h5 style="padding-left: 15px; font-size: 15px; margin: 20px;">Last login session: {{ last_login }}</h5>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="form" onsubmit="return false;">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        <label for="name" class="col-form-label">Name:</label>
+                                        <input type="text" class="form-control" id="name" name="name"></input>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="amount" class="col-form-label">Amount:</label>
+                                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="col-form-label">Description:</label>
+                                        <textarea class="form-control" id="description" name="description"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="button_add"
+                                    data-bs-dismiss="modal">Add
+                                    Item</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+
+                <button type="button" class="new-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Add
+                    New Item</button>
+                <!-- <div>
+                    <a href="{% url 'main:create_product' %}">
+                        <button class="new-btn">
+                            Add New Product
+                        </button>
+                    </a>
+                </div> -->
+
+                <h5 style="padding-left: 15px; font-size: 15px; margin: 20px;">Last login session: {{ last_login }}</h5>
+
+            </div>
         </div>
     </div>
-</div>
-<!-- <div style="height: 100vh;"> -->
 
-<!-- <header class="header">
-        <h2 class="logo">InVentory</h2>
-        <a href="{% url 'main:logout' %}">
-            <button class="logout-btn">
-                Logout
-            </button>
-        </a>
-    </header> -->
-<!-- <br>
-    <br> -->
-<!-- <br> -->
-<!-- <h1
-        style=" color: black; font-size: 40px; padding: 10px; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: start;">
-
-        {{app_name}}
-
-    </h1> -->
-<!-- <br>
-    <div class="card-name">
-        <h5 style="font-size: 15px; margin-bottom: 10px;">
-            Welcome Back, {{name}}!
-        </h5>
-    </div>
-
-    <p style="color:#666c76; font-family: Arial, Helvetica, sans-serif; margin-left: 15px;">
-        You have saved {{items_count}} items in this
-        application</p> -->
-
-<!-- <h5 style="margin-top: 0px; text-align: center;">
-        {{class}}
-    </h5> -->
-
-<!-- <!DOCTYPE html>
-    <html>
+    <script>
+        async function getProducts() {
+            return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+        }
 
 
+        async function refreshProducts() {
 
-    <div class="card-table">
+            document.getElementById("product_table").innerHTML = ""
+            const products = await getProducts()
+            let htmlString =
+                `<tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Date Added</th>
+        </tr>`
+            products.forEach((item) => {
+                htmlString += `\n<tr>
+            <td>${item.fields.name}</td>
+            <td>${item.fields.amount}</td>
+            <td>${item.fields.description}</td>
+            <td>${item.fields.date_added}</td>
+        </tr>`
+            })
 
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th> Date Added</th>
-            </tr>
+            document.getElementById("product_table").innerHTML = htmlString
+        }
 
-            {% comment %} Below is how to show the product data {% endcomment %}
+        refreshProducts()
 
-            {% for item in items %}
-            <tr>
-                <td>{{item.name}}</td>
-                <td>{{item.amount}}</td>
-                <td>{{item.description}}</td>
-                <td>{{item.date_added}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <br /> -->
+        function addProduct() {
+            fetch("{% url 'main:add_product_ajax' %}", {
+                method: "POST",
+                body: new FormData(document.querySelector('#form'))
+            }).then(refreshProducts)
 
+            document.getElementById("form").reset()
+            return false
+        }
 
-
-<!-- <div>
-        <a href="{% url 'main:create_product' %}">
-            <button class="new-btn">
-                Add New Product
-            </button>
-        </a>
-    </div>
-
-    <h5 style="padding-left: 15px; font-size: 15px;">Last login session: {{ last_login }}</h5>
-
-
+        document.getElementById("button_add").onclick = addProduct
+    </script>
 
     {% endblock content %}
-</div> -->
