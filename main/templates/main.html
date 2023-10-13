@@ -61,6 +61,23 @@
             cursor: pointer;
         }
 
+        .delete-btn {
+            border-radius: 5px;
+            /* background-color: red;
+            border: red; */
+            color: rgb(0, 0, 0);
+            display: flex;
+            margin: auto;
+            justify-content: center;
+            align-items: center;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 15px;
+            background-color: #fdfeff6f;
+            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(15px);
+        }
+
         a {
             text-decoration: none;
         }
@@ -294,6 +311,7 @@
             <th>Amount</th>
             <th>Description</th>
             <th>Date Added</th>
+            <th>Action</th>
         </tr>`
             products.forEach((item) => {
                 htmlString += `\n<tr>
@@ -301,6 +319,12 @@
             <td>${item.fields.amount}</td>
             <td>${item.fields.description}</td>
             <td>${item.fields.date_added}</td>
+            <td>
+                <button class="delete-btn" onclick="deleteProduct(${item.pk})">
+            Delete
+        </button>
+        </td>
+
         </tr>`
             })
 
@@ -320,6 +344,16 @@
         }
 
         document.getElementById("button_add").onclick = addProduct
+
+        function deleteProduct(id) {
+            fetch("delete-product-ajax/" + id, {
+                method: "POST"
+            }).then(refreshProducts)
+
+            document.getElementById("form").reset()
+            return false
+        }
+
     </script>
 
     {% endblock content %}
