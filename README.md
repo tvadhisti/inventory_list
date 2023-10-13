@@ -576,3 +576,144 @@ Styling the 'create_product' page was relatively brief. I added a card for the f
 
 Throughout this website styling, I frequently used cards to make things look better.
 
+
+## Assignment 6
+
+**1. Asynchronous Programming vs Synchronous Programming**
+
+Synchronous programming involves executing tasks one after the other, in a sequence. For example, suppose we have a program that needs to perform two tasks. In synchronous programming, it executes these tasks one by one, waiting for each task to finish before moving on to the next one:
+1.	Start Task A.
+Wait for Task A to complete.
+2.	Start Task B.
+Wait for Task B to complete.
+
+Asynchronous programming, on the other hand, involves starting tasks and allowing them to run independently. In this approach, the program doesn't wait for each task to finish before starting the next one:
+1.	Start Task A and let it run in the background.
+2.	Start Task B and let it run in the background.
+
+
+**2. The event-driven Programming Paradigm**
+
+Event-driven programming in JavaScript and AJAX involves code that responds to events, such as button clicks or server responses. Programmers specify event handler to manage these events, and the code actively waits for these specific events to happen. When an event occurs, the associated event handler is called, and the code responds right away, so that the page’s appearance is updated in some way result.
+
+example of its implementation in this project:
+```
+<button class="delete-btn" onclick="deleteProduct(${item.pk})">
+```
+```
+function deleteProduct(id) {
+            fetch("delete-product-ajax/" + id, {
+                method: "POST"
+            }).then(refreshProducts)
+
+            document.getElementById("form").reset()
+            return false
+        }
+```
+
+
+**3. Implementation of Asynchronous Programming in AJAX**
+
+Asynchronous programming in AJAX allows a website to talk to a server without waiting for a response, keeping it responsive and doesn't freeze while waiting for a server response.
+
+The implementation:
+
+1.	When a webpage event occurs (e.g., a button click or a form submission), JavaScript can create an XMLHttpRequest object or use the fetch API. This object  sends a request to a web server.
+   
+2.	The web server processes the request and sends a response back to the browser.
+   
+3.	JavaScript then reads and handles the response based on the triggering event, depending on the specific code that has already been written
+
+
+**4. Fetch API vs jQuery library**
+
+The Fetch API is a built-in part of modern web browsers that's simple and light, making it a great choice for current web development. However, jQuery is a little older and less in step with the most recent developments in web development, despite being flexible and easy enough for beginners to use.
+
+In my opinion the Fetch API is a better option for the majority of new projects. It is simpler and more aligned with modern web development. However, jQuery can still be useful, especially when supporting older web browsers.
+
+
+**5. Steps in implementing the task**
+
+To enable the program to utilize AJAX for data retrieval and submission, I introduced a new function in ```views.py```:
+```
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Item(name=name, amount=amount,
+                           description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+```
+
+Additionally, I created a function to retrieve product data in JSON format:
+```
+def get_product_json(request):
+    product_item = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', product_item))
+```
+
+before that I imported ```csrf_exempt``` from ```django.views.decorators.csrf``` and added ```@csrf_exempt``` above the ```add_product_ajax``` function.
+
+I also included these two new URL paths in the ```urls.py``` file. In the ```main.html``` file, I replaced the table code with a table identified by the "product_table" ID. Additionally, I introduced JavaScript code within the ```main.html``` by adding ```<script>``` tag. To begin, I created an asynchronous function named ```getProduct```, and another called ```refreshProducts```. The ```refreshProducts``` function enable the main page to update asynchronously, ensuring that the most recent item list is displayed without the necessity of reloading the entire page.
+
+I also created a new JavaScript function to enable a button that opens the modal:
+```
+function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+```
+
+Additionally, I configured the ```addProduct()``` function as the "onclick" action for the "Add Product" button within the modal:
+```
+document.getElementById("button_add").onclick = addProduct
+```
+I added this code following the definition of the "addProduct" function.
+
+Next, I created a form modal by using bootstrap.
+
+Lastly, I added this function to ```views.py``` to enable the program to delete items:
+```
+@csrf_exempt
+def delete_product_ajax(request, id):
+    item = Item.objects.get(pk=id)
+    item.delete()
+    return HttpResponse(b"DELETED", status=201)
+```
+
+I included the URL path for ```delete_product_ajax``` in ```urls.py```. I also introduced a new JavaScript function:
+```
+function deleteProduct(id) {
+            fetch("delete-product-ajax/" + id, {
+                method: "POST"
+            }).then(refreshProducts)
+
+            document.getElementById("form").reset()
+            return false
+        }
+```
+Then I added a new column with the header ```<th>Action</th>``` to the table, which contains a delete button:
+```
+<td>
+   <button class="delete-btn" onclick="deleteProduct(${item.pk})">Delete</button>
+</td>
+```
+
+
+
+
+
+
+
