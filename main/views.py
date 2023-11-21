@@ -1,9 +1,11 @@
+from django.http import JsonResponse
+from .models import Item
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from main.forms import ProductForm
 from main.models import Item
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.core import serializers
 from django.shortcuts import redirect
 from django.contrib.auth.forms import UserCreationForm
@@ -12,6 +14,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 @login_required(login_url='/login')
@@ -93,7 +96,7 @@ def show_xml(request):
 
 
 def show_json(request):
-    data = Item.objects.all()
+    data = Item.objects.filter(user=request.user)
     return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
 # Retrieving Data Based on ID in XML and JSON Formats
@@ -142,3 +145,25 @@ def delete_product_ajax(request, id):
     item = Item.objects.get(pk=id)
     item.delete()
     return HttpResponse(b"DELETED", status=201)
+
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+
+        data = json.loads(request.body)
+
+        new_product = Item.objects.create(
+            user=request.user,
+            name=data["name"],
+            amount=int(data["amount"]),
+            description=data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+
+    from django.contrib.auth.decorators import login_required
