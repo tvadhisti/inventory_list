@@ -266,6 +266,12 @@
                                         <label for="description" class="col-form-label">Description:</label>
                                         <textarea class="form-control" id="description" name="description"></textarea>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="1" name="is_discount">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Discount
+                                        </label>
+                                    </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
@@ -311,21 +317,30 @@
             <th>Amount</th>
             <th>Description</th>
             <th>Date Added</th>
+            <th>Discount</th>
             <th>Action</th>
         </tr>`
             products.forEach((item) => {
-                htmlString += `\n<tr>
-            <td>${item.fields.name}</td>
-            <td>${item.fields.amount}</td>
-            <td>${item.fields.description}</td>
-            <td>${item.fields.date_added}</td>
-            <td>
-                <button class="delete-btn" onclick="deleteProduct(${item.pk})">
-            Delete
-        </button>
-        </td>
+                htmlString = htmlString + `\n`;
+                if (item.fields.is_discount) {
+                    htmlString += `<tr style = "background-color:red">`;
+                } else {
+                    htmlString += `<tr style = "background-color:blue">`;
+                }
 
-        </tr>`
+                htmlString +=
+                    `<td>${item.fields.name}</td>
+                    <td>${item.fields.amount}</td>
+                    <td>${item.fields.description}</td>
+                    <td>${item.fields.date_added}</td>
+                    <td>${item.fields.is_discount}</td>
+                    <td>
+                        <button class="delete-btn" onclick="deleteProduct(${item.pk})">
+                            Delete
+                        </button>
+                    </td>
+
+                </tr>`
             })
 
             document.getElementById("product_table").innerHTML = htmlString
